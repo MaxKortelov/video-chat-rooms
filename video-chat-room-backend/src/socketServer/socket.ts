@@ -1,11 +1,10 @@
-import {Server} from "socket.io";
+import {Server, Socket} from "socket.io";
 import {ACTIONS} from "../models/chatRoom";
 import {DefaultEventsMap} from "socket.io/dist/typed-events";
 import { shareRoomsInfo } from './chatRoom.service';
 import {version, validate} from 'uuid';
 
-function manageIO(io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) {
-  io.on('connection', (socket) => {
+function handleSocketConnection(io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>, socket: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) {
     shareRoomsInfo(io);
 
     socket.on(ACTIONS.JOIN, config => {
@@ -77,7 +76,6 @@ function manageIO(io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMa
       iceCandidate,
     });
   });
-})
 }
 
-module.exports = { manageIO };
+module.exports = { handleSocketConnection };
