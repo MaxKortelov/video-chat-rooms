@@ -1,3 +1,4 @@
+import express from 'express';
 import { createServer } from "http";
 import { Server } from "socket.io";
 import dotenv from 'dotenv';
@@ -6,17 +7,21 @@ import { handleSocketConnection } from "./socketServer/socket"
 
 dotenv.config();
 
-const port = process.env.PORT;
+const PORT = process.env.PORT;
 
-const httpServer = createServer();
-const io = new Server(httpServer, {
-  // options
+const app = express();
+const server = createServer(app);
+const io = new Server(server);
+
+app.get('/', (req, res) => {
+  res.send('<h1>Server is working</h1>');
 });
 
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
+  console.log('a user connected');
   handleSocketConnection(io, socket);
 });
 
-httpServer.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at PORT ${port}`);
+server.listen(PORT, () => {
+  console.log(`listening on *:${PORT}`);
 });
