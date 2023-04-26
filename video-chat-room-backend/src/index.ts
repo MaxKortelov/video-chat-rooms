@@ -8,6 +8,7 @@ import { handleSocketConnection } from "./socketServer/socket"
 dotenv.config();
 
 const PORT = process.env.PORT;
+const IP = process.env.IP
 
 const app = express();
 const server = createServer(app);
@@ -22,6 +23,6 @@ io.on('connection', (socket) => {
   handleSocketConnection(io, socket);
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, IP, () => {
   console.log(`listening on *:${PORT}`);
 });
