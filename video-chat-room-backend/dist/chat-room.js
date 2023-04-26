@@ -10,6 +10,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const socket_1 = require("./socketServer/socket");
 dotenv_1.default.config();
 const PORT = process.env.PORT;
+const IP = process.env.IP;
 const app = (0, express_1.default)();
 const server = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(server);
@@ -20,6 +21,6 @@ io.on('connection', (socket) => {
     console.log('a user connected');
     (0, socket_1.handleSocketConnection)(io, socket);
 });
-server.listen(PORT, () => {
+server.listen(PORT, IP, () => {
     console.log(`listening on *:${PORT}`);
 });

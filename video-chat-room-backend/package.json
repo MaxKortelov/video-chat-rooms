@@ -2,12 +2,12 @@
   "name": "video-chat-room-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "chat-room.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "pm2 serve dist/index.js 1010",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "start": "pm2 start dist/chat-room.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/chat-room.js\""
   },
   "author": "",
   "license": "ISC",
