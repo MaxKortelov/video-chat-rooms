@@ -24,6 +24,6 @@ io.on('connection', (socket) => {
   handleSocketConnection(io, socket);
 });
 
-server.listen(PORT, () => {
-  console.log(`listening on *:${PORT}`);
+server.listen(PORT, IP() => {
+  console.log(`listening on *:${IP}:${PORT}`);
 });
