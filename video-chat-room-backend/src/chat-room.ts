@@ -15,6 +15,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 app.get('/', (req, res) => {
+  console.log("req")
   res.send('<h1>Server is working</h1>');
 });
 
@@ -23,6 +24,6 @@ io.on('connection', (socket) => {
   handleSocketConnection(io, socket);
 });
 
-server.listen(PORT, IP, () => {
+server.listen(PORT, () => {
   console.log(`listening on *:${PORT}`);
 });
