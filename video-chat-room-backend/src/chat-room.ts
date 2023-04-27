@@ -9,7 +9,7 @@ import {ENVIRONMENT} from "./models/global";
 dotenv.config();
 
 const PORT = process.env.PORT;
-const IP = process.env.NODE_ENV === ENVIRONMENT.PRODUCTION ? process.env.IP : 'localhost'
+const IP = process.env.NODE_ENV === ENVIRONMENT.PRODUCTION ? 'localhost' : 'localhost'
 console.log(process.env.NODE_ENV, IP)
 
 const app = express();
