@@ -9,10 +9,8 @@ function getClientRooms(io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEv
   return Array.from(rooms.keys()).filter(roomID => validate(roomID) && version(roomID) === 4);
 }
 
-function shareRoomsInfo(io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) {
+export function shareRoomsInfo(io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) {
   io.emit(ACTIONS.SHARE_ROOMS, {
     rooms: getClientRooms(io)
   })
 }
-
-module.exports = { getClientRooms, shareRoomsInfo }

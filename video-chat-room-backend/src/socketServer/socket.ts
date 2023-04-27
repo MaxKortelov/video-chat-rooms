@@ -4,7 +4,7 @@ import {DefaultEventsMap} from "socket.io/dist/typed-events";
 import { shareRoomsInfo } from './chatRoom.service';
 import {version, validate} from 'uuid';
 
-function handleSocketConnection(io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>, socket: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) {
+export function handleSocketConnection(io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>, socket: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) {
     shareRoomsInfo(io);
 
     socket.on(ACTIONS.JOIN, config => {
@@ -77,5 +77,3 @@ function handleSocketConnection(io: Server<DefaultEventsMap, DefaultEventsMap, D
     });
   });
 }
-
-module.exports = { handleSocketConnection };
