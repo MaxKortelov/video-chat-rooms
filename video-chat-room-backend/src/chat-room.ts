@@ -1,5 +1,4 @@
 import express, {Express} from 'express';
-import {createServer} from "http";
 import { Server } from "socket.io";
 import dotenv from 'dotenv';
 
@@ -7,6 +6,8 @@ import { handleSocketConnection } from "./socketServer/socket"
 import * as fs from "fs";
 import { ENVIRONMENT} from "./models/global";
 import path from "path";
+import * as https from "https";
+import * as http from "http";
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ if(ENV === ENVIRONMENT.PRODUCTION) {
     options.cert = fs.readFileSync(path.join(__dirname, '..', 'certificate', 'certificate.crt'));
 };
 
-const server = ENV === ENVIRONMENT.PRODUCTION ? createServer(options, app) : createServer(app);
+const server = ENV === ENVIRONMENT.PRODUCTION ? https.createServer(options, app) : http.createServer(app);
 const io = new Server(server);
 
 app.get('/', (req, res) => {
