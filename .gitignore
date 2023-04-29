@@ -7,3 +7,18 @@ video-chat-room-backend/node_modules/
 video-chat-room-webapp/node_modules/
 
 Makefile
+<VirtualHost *:80>
+    ServerAdmin master@server.com
+    ServerName 127.0.0.1
+    ServerAlias test-server.space
+
+    DocumentRoot /var/www/test-server.space/public
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certificate.crt
+    SSLCertificateKeyFile /etc/ssl/private/private.key
+    SSLCertificateChainFile /etc/ssl/ca_bundle.crt
+
+    LogLevel warn
+    ErrorLog /var/www/test-server.space/log/error.log
+    CustomLog /var/www/test-server.space/log/access.log combined
+</VirtualHost>

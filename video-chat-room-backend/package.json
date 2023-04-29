@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node dist/chat-room.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/chat-room.js\""
+    "start": "NODE_ENV=production node dist/chat-room.js",
+    "dev": "NODE_ENV=development concurrently \"npx tsc --watch\" \"nodemon -q dist/chat-room.js\""
   },
   "author": "",
   "license": "ISC",
