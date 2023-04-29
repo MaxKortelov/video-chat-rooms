@@ -1,11 +1,12 @@
 import express, {Express} from 'express';
-import {createServer, ServerOptions} from "http";
+import {createServer} from "http";
 import { Server } from "socket.io";
 import dotenv from 'dotenv';
 
 import { handleSocketConnection } from "./socketServer/socket"
 import * as fs from "fs";
 import { ENVIRONMENT} from "./models/global";
+import path from "path";
 
 dotenv.config();
 
@@ -16,8 +17,8 @@ export const ENV = process.env.NODE_ENV;
 
 let options: any = {};
 if(ENV === ENVIRONMENT.PRODUCTION) {
-    options.key = fs.readFileSync('/etc/ssl/private/private.key');
-    options.cert = fs.readFileSync('/etc/ssl/certificate.crt');
+    options.key = fs.readFileSync(path.join(__dirname, '..', 'certificate', 'private.key'));
+    options.cert = fs.readFileSync(path.join(__dirname, '..', 'certificate', 'certificate.crt'));
 };
 
 const server = ENV === ENVIRONMENT.PRODUCTION ? createServer(options, app) : createServer(app);
