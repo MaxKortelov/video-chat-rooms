@@ -28,21 +28,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ENV = exports.PORT = void 0;
 const express_1 = __importDefault(require("express"));
+const http_1 = require("http");
 const socket_io_1 = require("socket.io");
 const dotenv_1 = __importDefault(require("dotenv"));
 const socket_1 = require("./socketServer/socket");
 const fs = __importStar(require("fs"));
-const https = __importStar(require("https"));
 const global_1 = require("./models/global");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 exports.PORT = process.env.PORT;
 exports.ENV = process.env.NODE_ENV;
-const options = exports.ENV === global_1.ENVIRONMENT.PRODUCTION ? {
-    key: fs.readFileSync('/etc/ssl/private/private.key'),
-    cert: fs.readFileSync('/etc/ssl/certificate.crt'),
-} : {};
-const server = https.createServer(options, app);
+let options = {};
+if (exports.ENV === global_1.ENVIRONMENT.PRODUCTION) {
+    options.key = fs.readFileSync('/etc/ssl/private/private.key');
+    options.cert = fs.readFileSync('/etc/ssl/certificate.crt');
+}
+;
+const server = exports.ENV === global_1.ENVIRONMENT.PRODUCTION ? (0, http_1.createServer)(options, app) : (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(server);
 app.get('/', (req, res) => {
     res.send('<h1>Server is working</h1>');
