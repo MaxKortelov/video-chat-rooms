@@ -58,7 +58,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ./volumes
+      device: /root/projects/video-chat-rooms/views/
       o: bind
 
 networks:
