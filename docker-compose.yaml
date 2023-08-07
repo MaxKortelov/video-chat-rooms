@@ -1,6 +1,30 @@
 version: "3.7"
 
 services:
+  backend:
+      build:
+        dockerfile: Dockerfile
+        context: ./video-chat-room-backend
+      image: video-chat
+      container_name: video-chat
+  #    ports:
+  #      - "9910:9910"
+  #    expose:
+  #      - 9910
+      restart: always
+      networks:
+        - app-network
+  #  frontend:
+  #    build:
+  #      dockerfile: Dockerfile
+  #      context: ./../studia-poland-webapp
+  #    ports:
+  #      - "3000:3000"
+  #    expose:
+  #      - 3000
+  #    restart: always
+  #    depends_on:
+  #      - backend
   webserver:
     image: nginx:mainline-alpine
     container_name: webserver
@@ -26,30 +50,6 @@ services:
     depends_on:
       - webserver
     command: certonly --webroot --webroot-path=/var/www/html --email admin@test-server.space --agree-tos --no-eff-email --staging -d test-server.space -d www.test-server.space
-  backend:
-    build:
-      dockerfile: Dockerfile
-      context: ./video-chat-room-backend
-    image: video-chat
-    container_name: video-chat
-#    ports:
-#      - "9910:9910"
-#    expose:
-#      - 9910
-    restart: always
-    networks:
-      - app-network
-#  frontend:
-#    build:
-#      dockerfile: Dockerfile
-#      context: ./../studia-poland-webapp
-#    ports:
-#      - "3000:3000"
-#    expose:
-#      - 3000
-#    restart: always
-#    depends_on:
-#      - backend
 
 volumes:
   certbot-etc:
