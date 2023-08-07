@@ -31,11 +31,13 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - web-root:/var/www/html
       - ./nginx-conf:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
     depends_on:
       - backend
     networks:
@@ -59,6 +61,12 @@ volumes:
     driver_opts:
       type: none
       device: /root/projects/video-chat-rooms/video-chat-room-backend/views/
+      o: bind
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /root/projects/video-chat-rooms/dhparam/
       o: bind
 
 networks:
