@@ -10,18 +10,19 @@ COPY ./video-chat-room-webapp .
 
 RUN npm run build
 
+#--------------------------------------------
 
 FROM node:latest 
 
 WORKDIR /app
-
-COPY --from=frontend /frontend/build /app
 
 COPY video-chat-room-backend/package*.json /app/
 
 RUN npm install
 
 COPY ./video-chat-room-backend .
+
+COPY --from=frontend /frontend/build /app/public/
 
 RUN npm run build
 
