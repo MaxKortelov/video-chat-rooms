@@ -1,10 +1,10 @@
 version: "3.7"
 
 services:
-  backend:
+  app:
       build:
         dockerfile: Dockerfile
-        context: ./video-chat-room-backend
+        # context: ./video-chat-room-backend
       image: video-chat
       container_name: video-chat
   #    ports:
@@ -24,7 +24,7 @@ services:
   #      - 3000
   #    restart: always
   #    depends_on:
-  #      - backend
+  #      - app
   webserver:
     image: nginx:mainline-alpine
     container_name: webserver
@@ -39,7 +39,7 @@ services:
       - certbot-var:/var/lib/letsencrypt
       - dhparam:/etc/ssl/certs
     depends_on:
-      - backend
+      - app
     networks:
       - app-network
   certbot:

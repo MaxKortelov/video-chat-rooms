@@ -25,9 +25,11 @@ if(ENV === ENVIRONMENT.PRODUCTION) {
 const server = ENV === ENVIRONMENT.PRODUCTION ? https.createServer(options, app) : http.createServer(app);
 const io = new Server(server);
 
-app.get('/', (req, res) => {
-  res.send('<h1>Server is working</h1>');
-});
+app.use(express.static('public'))
+
+// app.get('/', (req, res) => {
+//   res.send('<h1>Server is working</h1>');
+// });
 
 io.on('connection', (socket) => {
   console.log('a user connected');
