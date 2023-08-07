@@ -7,6 +7,8 @@ const options = {
   transports: ["websocket"]
 }
 
-const socket = io(process.env.REACT_APP_SOCKET_URL, options);
+const url = process.env.NODE_ENV === "development" ? process.env.REACT_APP_SOCKET_URL : window.location.origin;
+
+const socket = io(url, options);
 
 export default socket;

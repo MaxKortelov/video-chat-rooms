@@ -12,7 +12,7 @@ RUN npm run build
 
 #--------------------------------------------
 
-FROM node:latest 
+FROM node:latest AS application
 
 WORKDIR /app
 

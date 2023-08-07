@@ -10,6 +10,10 @@ services:
       restart: always
       networks:
         - app-network
+      ports:
+        - "9910:9910"
+      expose:
+        - 9910
 #   webserver:
 #     image: nginx:mainline-alpine
 #     container_name: webserver
