@@ -9,7 +9,6 @@ const options = {
 
 const url = process.env.NODE_ENV === "development" ? process.env.REACT_APP_SOCKET_URL : window.location.origin;
 
-// const socket = io("ws://" + url, options);
 const socket = io(url, options);
 
 export default socket;

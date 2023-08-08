@@ -14,49 +14,49 @@ services:
         - "9910:9910"
       expose:
         - 9910
-#   webserver:
-#     image: nginx:mainline-alpine
-#     container_name: webserver
-#     restart: unless-stopped
-#     ports:
-#       - "80:80"
-#       - "443:443"
-#     volumes:
-#       - web-root:/var/www/html
-#       - ./nginx-conf:/etc/nginx/conf.d
-#       - certbot-etc:/etc/letsencrypt
-#       - certbot-var:/var/lib/letsencrypt
-#       - dhparam:/etc/ssl/certs
-#     depends_on:
-#       - app
-#     networks:
-#       - app-network
-#   certbot:
-#     image: certbot/certbot
-#     container_name: certbot
-#     volumes:
-#       - certbot-etc:/etc/letsencrypt
-#       - certbot-var:/var/lib/letsencrypt
-#       - web-root:/var/www/html
-#     depends_on:
-#       - webserver
-#     command: certonly --webroot --webroot-path=/var/www/html --email admin@test-server.space --agree-tos --no-eff-email --force-renewal -d test-server.space -d www.test-server.space
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - dhparam:/etc/ssl/certs
+    depends_on:
+      - app
+    networks:
+      - app-network
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+    command: certonly --webroot --webroot-path=/var/www/html --email admin@test-server.space --agree-tos --no-eff-email --force-renewal -d test-server.space -d www.test-server.space
 
-# volumes:
-#   certbot-etc:
-#   certbot-var:
-#   web-root:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /root/projects/video-chat-rooms/video-chat-room-backend/views/
-#       o: bind
-#   dhparam:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /root/projects/video-chat-rooms/dhparam/
-#       o: bind
+volumes:
+  certbot-etc:
+  certbot-var:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /root/projects/video-chat-rooms/video-chat-room-backend/views/
+      o: bind
+  dhparam:
+    driver: local
+    driver_opts:
+      type: none
+      device: /root/projects/video-chat-rooms/dhparam/
+      o: bind
 
 networks:
   app-network:
