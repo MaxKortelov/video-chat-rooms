@@ -1,42 +1,35 @@
 import express, {Express} from 'express';
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 import dotenv from 'dotenv';
-
 import { handleSocketConnection } from "./socketServer/socket"
-import * as fs from "fs";
-import { ENVIRONMENT} from "./models/global";
 import path from "path";
-// import * as https from "https";
-import * as http from "http";
+import {createServer} from "http";
+import { ENVIRONMENT } from './models/global';
 
 dotenv.config();
 
 const app: Express = express();
+const server = createServer(app);
+const io = new Server(server);
+
+
+app.use(express.static('public'));
 
 export const PORT = process.env.PORT;
 export const ENV = process.env.NODE_ENV;
+const isProd = ENV === ENVIRONMENT.PRODUCTION;
 
-let options: any = {};
-if(ENV === ENVIRONMENT.PRODUCTION) {
-    options.key = fs.readFileSync(path.join(__dirname, '..', 'certificate', 'private.key'));
-    options.cert = fs.readFileSync(path.join(__dirname, '..', 'certificate', 'certificate.crt'));
-};
+if(isProd) {
+  app.get('*', function (request, response) {
+    response.sendFile(path.resolve('public/index.html'));
+  });
+}
 
-// const server = ENV === ENVIRONMENT.PRODUCTION ? https.createServer(options, app) : http.createServer(app);
-const server = http.createServer(app)
-const io = new Server(server);
-
-app.use(express.static('public'))
-
-// app.get('/', (req, res) => {
-//   res.send('<h1>Server is working</h1>');
-// });
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  handleSocketConnection(io, socket);
+server.listen(PORT,() => {
+  console.log(`listening on *:${PORT}`);
 });
 
-app.listen(PORT,() => {
-  console.log(`listening on *:${PORT}`);
+io.on('connection', (socket: Socket) => { 
+  console.log('a user connected');
+  handleSocketConnection(io, socket);
 });
