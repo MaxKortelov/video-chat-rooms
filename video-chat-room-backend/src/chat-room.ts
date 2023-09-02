@@ -19,11 +19,11 @@ export const PORT = process.env.PORT;
 export const ENV = process.env.NODE_ENV;
 const isProd = ENV === ENVIRONMENT.PRODUCTION;
 
-if(isProd) {
-  app.get('*', function (request, response) {
-    response.sendFile(path.resolve('public/index.html'));
-  });
-}
+// if(isProd) {
+//   app.get('*', function (request, response) {
+//     response.sendFile(path.resolve('public/index.html'));
+//   });
+// }
 
 server.listen(PORT,() => {
   console.log(`listening on *:${PORT}`);

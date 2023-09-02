@@ -10,13 +10,16 @@ services:
       restart: always
       networks:
         - app-network
-      ports:
-        - "9910:9910"
-      expose:
-        - 9910
+      # ports:
+      #   - "9910:9910"
+      # expose:
+      #   - 9910
   webserver:
-    image: nginx:mainline-alpine
+    image: webserver
     container_name: webserver
+    build:
+        dockerfile: Dockerfile
+        context: ./video-chat-room-webapp
     restart: unless-stopped
     ports:
       - "80:80"
