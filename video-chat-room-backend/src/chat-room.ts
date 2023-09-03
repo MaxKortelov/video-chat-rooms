@@ -13,7 +13,8 @@ const server = createServer(app);
 const io = new Server(server);
 
 
-// app.use(express.static('public'));
+app.use("/", express.static(path.join(__dirname, 'views')));
+app.use("/room/:id", express.static(path.join(__dirname, 'views')));
 
 export const PORT = process.env.PORT;
 // export const ENV = process.env.NODE_ENV;
@@ -25,13 +26,13 @@ export const PORT = process.env.PORT;
   // });
 // }
 
-app.get('/', function (request, response) {
-    response.sendFile(path.resolve(__dirname, 'views/index.html'));
-});
+// app.get('/rooms/:id', function (request, response) {
+//     response.sendFile(path.resolve(__dirname, 'views/index.html'));
+// });
 
-app.get('/room/:id', function (request, response) {
-  response.sendFile(path.resolve(__dirname, 'views/index.html'));
-});
+// app.get('/room/:id', function (request, response) {
+//   response.sendFile(path.resolve(__dirname, 'views/index.html'));
+// });
 
 server.listen(PORT,() => {
   console.log(`listening on *:${PORT}`);

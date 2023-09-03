@@ -22,7 +22,7 @@ RUN npm install
 
 COPY ./video-chat-room-backend .
 
-COPY --from=frontend /frontend/build /app/views/
+COPY --from=frontend /frontend/build /app/dist/views/
 
 RUN npm run build
 
