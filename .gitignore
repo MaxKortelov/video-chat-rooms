@@ -3,8 +3,10 @@
 dist/
 
 video-chat-room-backend/node_modules/
+video-chat-room-backend/dist/
 
 video-chat-room-webapp/node_modules/
+video-chat-room-webapp/build
 
 Makefile
 # <VirtualHost *:80>

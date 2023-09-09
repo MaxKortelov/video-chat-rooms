@@ -1,4 +1,4 @@
-FROM node:latest AS frontend
+FROM node:18.16.0 AS frontend
 
 WORKDIR /frontend
 
