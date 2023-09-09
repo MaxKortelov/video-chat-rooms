@@ -25,22 +25,6 @@ app.use(function (req, res, next) {
 });
 
 export const PORT = process.env.PORT;
-// export const ENV = process.env.NODE_ENV;
-// const isProd = ENV === ENVIRONMENT.PRODUCTION;
-
-// if(isProd) {
-  // app.get('/', function (request, response) {
-  //   response.sendFile(path.resolve('public/index.html'));
-  // });
-// }
-
-// app.get('*', function (request, response) {
-//   response.send('<div>Hello World!</div>');
-// });
-
-// app.get('/room/:id', function (request, response) {
-//   response.sendFile(path.resolve(__dirname, 'views/index.html'));
-// });
 
 server.listen(PORT,() => {
   console.log(`listening on *:${PORT}`);
