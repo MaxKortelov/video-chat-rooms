@@ -38,7 +38,7 @@ services:
       - web-root:/var/www/html
     depends_on:
       - webserver
-    command: certonly --webroot --webroot-path=/var/www/html --email test@test-server.space --agree-tos --no-eff-email --staging --force-renewal -d test-server.space  -d www.test-server.space
+    command: certonly --webroot --webroot-path=/var/www/html --email test@test-server.space --agree-tos --no-eff-email --force-renewal -d test-server.space  -d www.test-server.space
 
 volumes:
   certbot-etc:
@@ -47,7 +47,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /root/projects/video-chat-rooms/video-chat-room-backend/views/
+      device: /root/projects/video-chat-rooms/video-chat-room-backend/dist/views/
       o: bind
   dhparam:
     driver: local
