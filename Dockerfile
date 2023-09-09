@@ -12,7 +12,7 @@ RUN npm run build
 
 # --------------------------------------------
 
-FROM node:latest AS application
+FROM node:18.16.0 AS application
 
 WORKDIR /app
 
@@ -26,10 +26,8 @@ COPY --from=frontend /frontend/build /app/dist/views/
 
 RUN npm run build
 
-RUN ls -a
-
 ENV PORT 9910
 
-EXPOSE $PORT
+# EXPOSE $PORT
 
 CMD ["npm", "run", "start"]

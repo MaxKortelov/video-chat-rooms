@@ -1,15 +1,17 @@
 version: "3.7"
 
 services:
-  application:
-      build:
-        dockerfile: Dockerfile
-        context: .
-      image: video-chat
-      container_name: video-chat
-      restart: always
-      networks:
-        - app-network
+  video-chat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: video-chat
+    container_name: video-chat
+    restart: unless-stopped
+    networks:
+      - app-network
+    # ports:
+    #   - "9910:9910"
   webserver:
     image: nginx:mainline-alpine
     container_name: webserver
@@ -24,7 +26,7 @@ services:
       - certbot-var:/var/lib/letsencrypt
       - dhparam:/etc/ssl/certs
     depends_on:
-      - application
+      - video-chat
     networks:
       - app-network
   certbot:
@@ -35,9 +37,8 @@ services:
       - certbot-var:/var/lib/letsencrypt
       - web-root:/var/www/html
     depends_on:
-      - application
       - webserver
-    command: certonly --webroot --webroot-path=/var/www/html --email admin@test-server.space --agree-tos --no-eff-email --force-renewal -d test-server.space -d www.test-server.space
+    command: certonly --webroot --webroot-path=/var/www/html --email test@test-server.space --agree-tos --no-eff-email --staging --force-renewal -d test-server.space  -d www.test-server.space
 
 volumes:
   certbot-etc:
